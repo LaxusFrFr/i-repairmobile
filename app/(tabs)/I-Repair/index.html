@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reset Password - I-Repair</title>
+    <style>
+        body {
+            font-family: 'System', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(180deg, #ffffff 0%, #d9d9d9 20%, #999999 40%, #4d4d4d 60%, #1a1a1a 80%, #000000 100%);
+        }
+        .container {
+            background: rgba(0, 0, 0, 0.1);
+            padding: 50px 40px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .logo {
+            font-size: 32px;
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 10px;
+            font-family: 'System', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        h1 {
+            color: #fff;
+            margin-bottom: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            font-family: 'System', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        .subtitle {
+            color: #ccc;
+            font-size: 16px;
+            margin-bottom: 30px;
+            font-family: 'System', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #fff;
+            font-weight: bold;
+            font-size: 14px;
+            font-family: 'System', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        input {
+            width: 100%;
+            height: 45px;
+            background-color: #333;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            color: #fff;
+            padding: 0 15px;
+            box-sizing: border-box;
+            font-family: 'System', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        input::placeholder {
+            color: #ccc;
+        }
+        input:focus {
+            outline: none;
+            background-color: #444;
+        }
+        .btn {
+            background: #000;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+            font-family: 'System', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            transition: opacity 0.3s ease;
+        }
+        .btn:hover {
+            opacity: 0.8;
+        }
+        .btn:disabled {
+            background: #333;
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+        .message {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+            font-family: 'System', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        .success {
+            background: rgba(212, 237, 218, 0.9);
+            color: #155724;
+            border: 1px solid rgba(195, 230, 203, 0.5);
+        }
+        .error {
+            background: rgba(248, 215, 218, 0.9);
+            color: #721c24;
+            border: 1px solid rgba(245, 198, 203, 0.5);
+        }
+        .loading {
+            display: none;
+            color: #fff;
+            font-family: 'System', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">I-Repair</div>
+        <h1>Reset Your Password</h1>
+        <div class="subtitle">Enter your new password below</div>
+        
+        <div id="message" class="message"></div>
+        
+        <form id="resetForm">
+            <div class="form-group">
+                <label for="newPassword">New Password</label>
+                <input type="password" id="newPassword" placeholder="Enter new password" required minlength="6">
+            </div>
+            
+            <div class="form-group">
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="password" id="confirmPassword" placeholder="Confirm new password" required minlength="6">
+            </div>
+            
+            <button type="submit" class="btn" id="submitBtn">Reset Password</button>
+        </form>
+        
+        <div class="loading" id="loading">Resetting password...</div>
+    </div>
+
+    <script>
+        // Get token from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const token = urlParams.get('token');
+        
+        if (!token) {
+            showMessage('Invalid or missing reset token.', 'error');
+            document.getElementById('resetForm').style.display = 'none';
+        }
+        
+        document.getElementById('resetForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            if (newPassword !== confirmPassword) {
+                showMessage('Passwords do not match.', 'error');
+                return;
+            }
+            
+            if (newPassword.length < 6) {
+                showMessage('Password must be at least 6 characters long.', 'error');
+                return;
+            }
+            
+            // Show loading
+            document.getElementById('resetForm').style.display = 'none';
+            document.getElementById('loading').style.display = 'block';
+            
+            try {
+                // Here you would call your Firebase function to reset the password
+                // For now, we'll simulate a successful reset
+                await new Promise(resolve => setTimeout(resolve, 2000)); // Simulate API call
+                
+                showMessage('Password reset successfully! You can now log in with your new password.', 'success');
+                
+                // Redirect to app after 3 seconds
+                setTimeout(() => {
+                    window.location.href = 'https://your-app-store-link.com'; // Replace with your app store link
+                }, 3000);
+                
+            } catch (error) {
+                showMessage('Failed to reset password. Please try again.', 'error');
+                document.getElementById('resetForm').style.display = 'block';
+                document.getElementById('loading').style.display = 'none';
+            }
+        });
+        
+        function showMessage(text, type) {
+            const messageDiv = document.getElementById('message');
+            messageDiv.textContent = text;
+            messageDiv.className = `message ${type}`;
+            messageDiv.style.display = 'block';
+        }
+    </script>
+</body>
+</html>

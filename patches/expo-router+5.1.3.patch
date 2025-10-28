@@ -1,0 +1,16 @@
+diff --git a/node_modules/expo-router/build/views/Navigator.js b/node_modules/expo-router/build/views/Navigator.js
+index 3f27602..d38878d 100644
+--- a/node_modules/expo-router/build/views/Navigator.js
++++ b/node_modules/expo-router/build/views/Navigator.js
+@@ -144,7 +144,10 @@ function NavigatorSlot() {
+     const { state, descriptors } = context;
+     return descriptors[state.routes[state.index].key]?.render() ?? null;
+ }
+-const SlotNavigatorWrapper = process.env.EXPO_OS === 'android' && (0, react_native_is_edge_to_edge_1.isEdgeToEdge)() ? react_1.Fragment : react_native_safe_area_context_1.SafeAreaView;
++const SlotNavigatorWrapper = process.env.EXPO_OS === 'android' && isEdgeToEdge()
++  ? ({ children }) => <SafeAreaView style={{ flex: 1 }}>{children}</SafeAreaView>
++  : SafeAreaView;
++
+ /**
+  * The default navigator for the app when no root _layout is provided.
+  */

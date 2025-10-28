@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "571739654699",
+    "project_id": "i-repair-laxus",
+    "storage_bucket": "i-repair-laxus.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:571739654699:android:46890fee7944e33020b86e",
+        "android_client_info": {
+          "package_name": "com.laxus.frfr.irepair"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBgw8uazMmaKeG0Yx6-YQFxYz-y1ocpS1I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

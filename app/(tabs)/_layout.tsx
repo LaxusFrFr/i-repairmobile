@@ -1,3 +1,4 @@
+
 import { Tabs } from 'expo-router';
 import React from 'react';
 import { Platform } from 'react-native';
@@ -22,8 +23,11 @@ export default function TabLayout() {
           ios: {
             // Use a transparent background on iOS to show the blur effect
             position: 'absolute',
+            display: 'none',
           },
-          default: {},
+          default: {
+            display: 'none',
+          },
         }),
       }}>
       <Tabs.Screen
