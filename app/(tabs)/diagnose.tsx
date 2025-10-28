@@ -10,8 +10,8 @@ import { diagnoseStyles } from '../../styles/diagnose.style';
 import { Picker } from '@react-native-picker/picker';
 
 // AI API configuration - Multiple options
-const GROQ_API_KEY = process.env.EXPO_PUBLIC_GROQ_API_KEY || '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';
-const GEMINI_API_KEY = process.env.EXPO_PUBLIC_GEMINI_API_KEY || 'AIzaSyD1gbTglg5orbN5vkS1SyFIJwGSUsCOzk0';
+const GROQ_API_KEY = process.env.EXPO_PUBLIC_GROQ_API_KEY;
+const GEMINI_API_KEY = process.env.EXPO_PUBLIC_GEMINI_API_KEY;
 const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
 const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent';
 
